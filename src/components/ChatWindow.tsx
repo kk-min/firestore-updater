@@ -1,8 +1,15 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { onSnapshot, query, collection, orderBy } from 'firebase/firestore';
-import { Virtuoso } from 'react-virtuoso';
+import {
+	onSnapshot,
+	getDocs,
+	query,
+	collection,
+	orderBy,
+	limit,
+} from 'firebase/firestore';
 import ChatBubble from './ChatBubble';
 import { db } from '../firebase';
+import '../css/App.css';
 
 export interface PropTypes {
 	path: string;
@@ -19,42 +26,47 @@ export default function ChatWindow(props: PropTypes) {
 
 	useEffect(() => {
 		const consultHistoryRef = collection(db, props.path);
-		const q = query(
-			collection(consultHistoryRef, 'ChatHistory'),
-			orderBy('timestamp')
+		const latestDocQ = query(
+			consultHistoryRef,
+			orderBy('timestamp'),
+			limit(1)
 		);
 
-		const virtuoso = useRef(null);
-
-		const unsubscribe = onSnapshot(q, (querySnapshot) => {
-			console.log('Received message list change!');
-			const chat_history: VirtualListItem[] = [];
-			querySnapshot.forEach((doc) => {
-				chat_history.push({
-					name: doc.data().name,
-					message: doc.data().message,
+		const callFirebase = async () => {
+			const latestDocSnapshot = await getDocs(latestDocQ);
+			latestDocSnapshot.forEach((doc) => {
+				const latestDocRef = doc.ref;
+				console.log(latestDocRef);
+				console.log(doc.data().type);
+				const q = query(
+					collection(latestDocRef, 'ChatHistory'),
+					orderBy('timestamp')
+				);
+				const unsubscribe = onSnapshot(q, (querySnapshot) => {
+					console.log('Received message list change!');
+					const chat_history: VirtualListItem[] = [];
+					querySnapshot.forEach((chat_doc) => {
+						chat_history.push({
+							name: chat_doc.data().from,
+							message: chat_doc.data().msg,
+						});
+					});
+					setVirtualList(chat_history.map((item) => item));
 				});
 			});
-			setVirtualList(chat_history.map((item) => item));
-		});
+		};
+		callFirebase();
 	}, [props.path]);
 
 	return (
-		<Virtuoso
-			ref={virtuoso}
-			style={{ minHeight: '50vh', flexGrow: 1, display: 'flex' }}
-			data={virtualList}
-			initialTopMostItemIndex={virtualList.length - 1}
-			followOutput='smooth'
-			itemContent={(index, item: VirtualListItem) => {
-				return (
-					<ChatBubble
-						message={item['message']}
-						userName={item['name']}
-						type={item['name'] == 'Doctor' ? 'sent' : 'received'}
-					/>
-				);
-			}}
-		></Virtuoso>
+		<div className='chatWindowContainer'>
+			{virtualList.map((item) => (
+				<ChatBubble
+					userName={item.name}
+					type={item.name === 'Doctor' ? 'sent' : 'received'}
+					message={item.message}
+				/>
+			))}
+		</div>
 	);
 }
