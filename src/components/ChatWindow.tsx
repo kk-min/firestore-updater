@@ -6,13 +6,14 @@ import {
 	collection,
 	orderBy,
 	limit,
+	DocumentReference,
 } from 'firebase/firestore';
 import ChatBubble from './ChatBubble';
 import { db } from '../firebase';
 import '../css/App.css';
 
 export interface PropTypes {
-	path: string;
+	docRef: any;
 }
 
 export interface VirtualListItem {
@@ -25,38 +26,25 @@ export default function ChatWindow(props: PropTypes) {
 	const virtuoso = useRef(null);
 
 	useEffect(() => {
-		const consultHistoryRef = collection(db, props.path);
-		const latestDocQ = query(
-			consultHistoryRef,
-			orderBy('timestamp'),
-			limit(1)
-		);
-
 		const callFirebase = async () => {
-			const latestDocSnapshot = await getDocs(latestDocQ);
-			latestDocSnapshot.forEach((doc) => {
-				const latestDocRef = doc.ref;
-				console.log(latestDocRef);
-				console.log(doc.data().type);
-				const q = query(
-					collection(latestDocRef, 'ChatHistory'),
-					orderBy('timestamp')
-				);
-				const unsubscribe = onSnapshot(q, (querySnapshot) => {
-					console.log('Received message list change!');
-					const chat_history: VirtualListItem[] = [];
-					querySnapshot.forEach((chat_doc) => {
-						chat_history.push({
-							name: chat_doc.data().from,
-							message: chat_doc.data().msg,
-						});
+			const q = query(
+				collection(props.docRef, 'ChatHistory'),
+				orderBy('timestamp')
+			);
+			const unsubscribe = onSnapshot(q, (querySnapshot) => {
+				console.log('Received message list change!');
+				const chat_history: VirtualListItem[] = [];
+				querySnapshot.forEach((chat_doc) => {
+					chat_history.push({
+						name: chat_doc.data().from,
+						message: chat_doc.data().msg,
 					});
-					setVirtualList(chat_history.map((item) => item));
 				});
+				setVirtualList(chat_history.map((item) => item));
 			});
 		};
 		callFirebase();
-	}, [props.path]);
+	}, [props.docRef]);
 
 	return (
 		<div className='chatWindowContainer'>
