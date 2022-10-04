@@ -44,7 +44,7 @@ export default function App() {
 		<div className='appContainer'>
 			<PathDisplay path={refPath} setPath={setRefPath} />
 			<ChatWindow docRef={docRef} />
-			<ChatBar />
+			<ChatBar docRef={docRef} />
 		</div>
 	);
 }
