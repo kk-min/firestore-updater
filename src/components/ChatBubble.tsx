@@ -29,7 +29,12 @@ export default function ChatBubble(props: PropTypes) {
 	return (
 		<Card
 			variant='outlined'
-			sx={{ bgcolor: color, maxWidth: '90%', alignSelf: alignment }}
+			sx={{
+				bgcolor: color,
+				maxWidth: '90%',
+				alignSelf: alignment,
+				zIndex: 0,
+			}}
 		>
 			<CardContent>
 				<Typography color={'white'} sx={{ fontSize: 12 }}>

@@ -12,5 +12,16 @@
 	width: 90vw;
 	gap: 1rem;
 	margin: 25px;
-    
+	margin-top: 35vh;
+	z-index: 0;
+}
+
+.pathContainer {
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	border: 2px solid black;
+	background-color: white;
+	height: fit-content;
+	padding: 5px;
 }
