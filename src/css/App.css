@@ -25,3 +25,9 @@
 	height: fit-content;
 	padding: 5px;
 }
+
+.updateItemContainer {
+	display: flex;
+	
+	gap: 0.5rem;
+}

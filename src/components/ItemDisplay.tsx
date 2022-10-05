@@ -8,7 +8,7 @@ import {
 	limit,
 	DocumentReference,
 } from 'firebase/firestore';
-import ChatBubble from './ChatBubble';
+import DocumentItem from './DocumentItem';
 import { db } from '../firebase';
 import '../css/App.css';
 
@@ -21,7 +21,7 @@ export interface VirtualListItem {
 	message: string;
 }
 
-export default function ChatWindow(props: PropTypes) {
+export default function ItemDisplay(props: PropTypes) {
 	const [virtualList, setVirtualList] = useState<VirtualListItem[]>([]);
 	const virtuoso = useRef(null);
 
@@ -49,7 +49,7 @@ export default function ChatWindow(props: PropTypes) {
 	return (
 		<div className='chatWindowContainer'>
 			{virtualList.map((item) => (
-				<ChatBubble
+				<DocumentItem
 					userName={item.name}
 					type={item.name === 'Doctor' ? 'sent' : 'received'}
 					message={item.message}

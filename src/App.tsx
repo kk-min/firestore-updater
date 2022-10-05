@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './css/App.css';
-import ChatBar from './components/ChatBar';
-import ChatWindow from './components/ChatWindow';
+import ChatBar from './components/UpdateBar';
+import ItemDisplay from './components/ItemDisplay';
 import PathDisplay from './components/PathDisplay';
 import {
 	onSnapshot,
@@ -43,7 +43,7 @@ export default function App() {
 	return (
 		<div className='appContainer'>
 			<PathDisplay path={refPath} setPath={setRefPath} />
-			<ChatWindow docRef={docRef} />
+			<ItemDisplay docRef={docRef} />
 			<ChatBar docRef={docRef} />
 		</div>
 	);

@@ -7,7 +7,7 @@ export interface PropTypes {
 	message: string;
 }
 
-export default function ChatBubble(props: PropTypes) {
+export default function DocumentItem(props: PropTypes) {
 	const [type, setType] = useState<string>('');
 	const [color, setColor] = useState<string>('');
 	const [alignment, setAlignment] = useState<string>('');
