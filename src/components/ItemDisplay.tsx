@@ -6,54 +6,48 @@ import {
 	collection,
 	orderBy,
 	limit,
-	DocumentReference,
+	CollectionReference,
+	DocumentData,
+	QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import DocumentItem from './DocumentItem';
 import { db } from '../firebase';
 import '../css/App.css';
+import { Type } from 'typescript';
 
 export interface PropTypes {
-	docRef: any;
-}
-
-export interface VirtualListItem {
-	name: string;
-	message: string;
+	cRef: any;
 }
 
 export default function ItemDisplay(props: PropTypes) {
-	const [virtualList, setVirtualList] = useState<VirtualListItem[]>([]);
+	const [virtualList, setVirtualList] = useState<any[]>([]);
 	const virtuoso = useRef(null);
 
 	useEffect(() => {
 		const callFirebase = async () => {
-			const q = query(
-				collection(props.docRef, 'ChatHistory'),
-				orderBy('timestamp')
-			);
+			const q = query(props.cRef, orderBy('timestamp'));
 			const unsubscribe = onSnapshot(q, (querySnapshot) => {
 				console.log('Received message list change!');
-				const chat_history: VirtualListItem[] = [];
+				const chat_history: any[] = [];
 				querySnapshot.forEach((chat_doc) => {
-					chat_history.push({
-						name: chat_doc.data().from,
-						message: chat_doc.data().msg,
-					});
+					const documentData = chat_doc.data();
+					console.log(chat_doc);
+					chat_history.push(documentData);
 				});
-				setVirtualList(chat_history.map((item) => item));
+				setVirtualList((prev) => chat_history.map((item) => item));
 			});
 		};
 		callFirebase();
-	}, [props.docRef]);
+	}, [props.cRef]);
+
+	useEffect(() => {
+		console.log(virtualList);
+	}, [virtualList]);
 
 	return (
 		<div className='chatWindowContainer'>
 			{virtualList.map((item) => (
-				<DocumentItem
-					userName={item.name}
-					type={item.name === 'Doctor' ? 'sent' : 'received'}
-					message={item.message}
-				/>
+				<DocumentItem data={item} />
 			))}
 		</div>
 	);

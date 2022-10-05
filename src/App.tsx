@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './css/App.css';
-import ChatBar from './components/UpdateBar';
+import UpdateBar from './components/UpdateBar';
 import ItemDisplay from './components/ItemDisplay';
 import PathDisplay from './components/PathDisplay';
 import {
@@ -10,41 +10,26 @@ import {
 	collection,
 	orderBy,
 	limit,
-	DocumentReference,
+	CollectionReference,
+	DocumentData,
 } from 'firebase/firestore';
 import { db } from './firebase';
 
 export default function App() {
 	const [refPath, setRefPath] = useState(
-		'Users/Y0wdXpIeSTR9mBN6b5v22WUkF4o2/ConsultHistory/'
+		'Users/Y0wdXpIeSTR9mBN6b5v22WUkF4o2/ConsultHistory/rTlk5YYUGW7Ecok9xFD0/ChatHistory'
 	);
-	const [docRef, setDocRef] = useState<DocumentReference>();
+	const [cRef, setCRef] = useState<CollectionReference<DocumentData>>();
 
 	useEffect(() => {
-		const consultHistoryRef = collection(db, refPath);
-		const latestDocQ = query(
-			consultHistoryRef,
-			orderBy('timestamp'),
-			limit(1)
-		);
-
-		const callFirebase = async () => {
-			const latestDocSnapshot = await getDocs(latestDocQ);
-			latestDocSnapshot.forEach((doc) => {
-				const latestDocRef = doc.ref;
-				console.log(latestDocRef);
-				console.log(doc.data().type);
-				setDocRef((prev) => latestDocRef);
-			});
-		};
-		callFirebase();
+		setCRef((prev) => collection(db, refPath));
 	}, [refPath]);
 
 	return (
 		<div className='appContainer'>
 			<PathDisplay path={refPath} setPath={setRefPath} />
-			<ItemDisplay docRef={docRef} />
-			<ChatBar docRef={docRef} />
+			<ItemDisplay cRef={cRef} />
+			<UpdateBar cRef={cRef} />
 		</div>
 	);
 }

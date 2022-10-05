@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 
 export interface PropTypes {
-	userName: string;
-	type: string;
-	message: string;
+	data: any;
 }
 
 export default function DocumentItem(props: PropTypes) {
@@ -12,35 +10,19 @@ export default function DocumentItem(props: PropTypes) {
 	const [color, setColor] = useState<string>('');
 	const [alignment, setAlignment] = useState<string>('');
 
-	useEffect(() => {
-		setType(props.type);
-		// sent
-		if (type == 'sent') {
-			setAlignment('flex-end');
-			setColor('dodgerblue');
-		} else {
-			// received
-			setAlignment('flex-start');
-			setColor('#00172D');
-		}
-		console.log('In ChatBubble useEffect');
-	});
-
 	return (
 		<Card
 			variant='outlined'
 			sx={{
-				bgcolor: color,
 				maxWidth: '90%',
 				alignSelf: alignment,
 				zIndex: 0,
 			}}
 		>
 			<CardContent>
-				<Typography color={'white'} sx={{ fontSize: 12 }}>
-					<b>{props.userName}</b>
-				</Typography>
-				<Typography color={'white'}>{props.message}</Typography>
+				{props.data.array.forEach((element: Object) => {
+					return <Typography>{JSON.stringify(element)}</Typography>;
+				})}
 			</CardContent>
 		</Card>
 	);

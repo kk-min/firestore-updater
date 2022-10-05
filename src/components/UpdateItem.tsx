@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/App.css';
 
 export interface PropTypes {
@@ -11,9 +11,17 @@ export default function UpdateItem(props: PropTypes) {
 	const [label, setLabel] = useState('');
 	const [value, setValue] = useState('');
 
+	useEffect(() => {
+		props.updateData({ id: id, label: label, value: value });
+	}, [label, value]);
+
 	const onChangeHandler = (e: any, flag: number) => {
 		if (flag == 0) {
+			// Change label
+			setLabel((prev) => e.target.value);
 		} else if (flag == 1) {
+			// Change value
+			setValue((prev) => e.target.value);
 		}
 	};
 

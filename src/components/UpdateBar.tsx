@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import UpdateItem from './UpdateItem';
 
 export interface PropTypes {
-	docRef: any;
+	cRef: any;
 }
 
 const createDocument = async (cRef: any, data: any) => {
@@ -17,15 +17,15 @@ export default function UpdateBar(props: PropTypes) {
 	const [labelList, setLabelList] = useState<string[]>([]);
 
 	const sendHandler = () => {
-		createDocument(props.docRef, data);
+		createDocument(props.cRef, data);
 		console.log('Sent!');
 	};
 
 	const addHandler = () => {
 		setLabelList([...labelList, '']);
 		let temp_array: any[] = data;
-		temp_array.push({ id: data.length, label: '', value: '' }),
-			setData((prev: any[]) => temp_array);
+		temp_array.push({ id: data.length, label: '', value: '' });
+		setData((prev: any[]) => temp_array);
 	};
 
 	const updateData = (newData: any) => {
