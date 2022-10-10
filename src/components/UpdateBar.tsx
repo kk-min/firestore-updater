@@ -39,8 +39,6 @@ export default function UpdateBar(props: PropTypes) {
 			return newData.id == item.id ? newData : item;
 		});
 		setData((prev: any[]) => temp_array);
-		console.log('parent data:');
-		console.log(data);
 	};
 	return (
 		<div className='chatBarContainer'>
