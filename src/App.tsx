@@ -30,7 +30,7 @@ export default function App() {
 				<PathDisplay path={refPath} setPath={setRefPath} />
 				<Authenticator />
 			</div>
-			<ItemDisplay cRef={cRef} />
+			<ItemDisplay refPath={refPath} />
 			<UpdateBar cRef={cRef} />
 		</div>
 	);

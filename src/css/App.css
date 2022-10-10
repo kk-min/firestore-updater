@@ -3,7 +3,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	margin-top: 40vh;
 }
 
 .chatWindowContainer {
@@ -11,12 +11,11 @@
 	flex-direction: column;
 	width: 90vw;
 	gap: 1rem;
-	margin: 25px;
-	margin-top: 35vh;
 	z-index: 0;
 }
 
 .configContainer {
+	z-index: 1;
 	position: fixed;
 	top: 20px;
 	display: flex;
@@ -26,7 +25,6 @@
 }
 
 .pathContainer {
-	z-index: 1;
 	border: 2px solid dodgerblue;
 	background-color: white;
 	height: fit-content;

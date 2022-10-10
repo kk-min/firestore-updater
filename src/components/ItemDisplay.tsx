@@ -16,14 +16,14 @@ import '../css/App.css';
 import { Type } from 'typescript';
 
 export interface PropTypes {
-	cRef: any;
+	refPath: string;
 }
 
 export default function ItemDisplay(props: PropTypes) {
 	const [virtualList, setVirtualList] = useState<any[]>([]);
 	useEffect(() => {
 		const callFirebase = async () => {
-			const q = query(props.cRef, orderBy('timestamp'));
+			const q = query(collection(db, props.refPath));
 			const unsubscribe = onSnapshot(q, (querySnapshot) => {
 				console.log('Received message list change!');
 				const chat_history: any[] = [];
@@ -31,11 +31,13 @@ export default function ItemDisplay(props: PropTypes) {
 					const documentData = chat_doc.data();
 					chat_history.push(documentData);
 				});
+				console.log('chat_history:');
+				console.log(chat_history);
 				setVirtualList((prev) => chat_history.map((item) => item));
 			});
 		};
 		callFirebase();
-	}, [props.cRef]);
+	}, [props.refPath]);
 
 	useEffect(() => {
 		console.log(virtualList);
