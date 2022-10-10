@@ -11,15 +11,8 @@ export default function DocumentItem(props: PropTypes) {
 	}, [props.data]);
 
 	return (
-		<Card
-			variant='outlined'
-			sx={{
-				zIndex: 0,
-				width: 'fit-content',
-				alignSelf: 'center',
-			}}
+		<div className='card-container'
 		>
-			<CardContent>
 				{Object.entries(props.data).map(([key, value]) => (
 					<>
 						<>{key} : </>
@@ -27,7 +20,6 @@ export default function DocumentItem(props: PropTypes) {
 						<br />
 					</>
 				))}
-			</CardContent>
-		</Card>
+		</div>
 	);
 }

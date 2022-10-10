@@ -29,7 +29,7 @@ export default function UpdateItem(props: PropTypes) {
 		<div className='updateItemContainer'>
 			<input
 				type='text'
-				placeholder='Label'
+				placeholder='Field'
 				onChange={(e) => onChangeHandler(e, 0)}
 			/>
 			<input

@@ -21,12 +21,12 @@ export default function PathDisplay(props: propTypes) {
 
 	return (
 		<div className='pathContainer'>
-			<p className='pathDisplay'>Consultation Path: {props.path}</p>
-			<button className='changeButton' onClick={changeHandler}>
+			<p className='pathDisplay'>Collection Path: {props.path}</p>
+			<button className='btn' onClick={changeHandler}>
 				Change Path
 			</button>
 			{showPathChange ? (
-				<div>
+				<div className='pathUpdater'>
 					<input
 						className='pathInput'
 						type='text'
@@ -38,7 +38,7 @@ export default function PathDisplay(props: propTypes) {
 							}
 						}}
 					/>
-					<button className='confirmButton' onClick={confirmHandler}>
+					<button className='btn' onClick={confirmHandler}>
 						Confirm
 					</button>
 				</div>

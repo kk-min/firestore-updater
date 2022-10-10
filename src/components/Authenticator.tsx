@@ -65,7 +65,9 @@ export default function Authenticator(props: PropTypes) {
 							setPassword((prev) => event.target.value);
 						}}
 					/>
-					<button onClick={authenticateHandler}>Authenticate</button>
+					<button className='btn' onClick={authenticateHandler}>
+						Authenticate
+					</button>
 				</>
 			)}
 		</div>

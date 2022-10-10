@@ -41,12 +41,18 @@ export default function UpdateBar(props: PropTypes) {
 		setData((prev: any[]) => temp_array);
 	};
 	return (
-		<div className='chatBarContainer'>
-			<button onClick={addHandler}>(+)</button>
+		<div className='updateBar'>
+			<button className='btn' onClick={addHandler}>
+				(+)
+			</button>
 			{idList.map((id) => {
 				return <UpdateItem updateData={updateData} id={id} />;
 			})}
-			<button onClick={sendHandler}>Send</button>
+			{idList.length > 0 ? (
+				<button className='btn' onClick={sendHandler}>
+					Send
+				</button>
+			) : null}
 		</div>
 	);
 }
