@@ -16,9 +16,16 @@
 	z-index: 0;
 }
 
-.pathContainer {
+.configContainer {
 	position: fixed;
-	top: 0;
+	top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.2rem;
+}
+
+.pathContainer {
 	z-index: 1;
 	border: 2px solid black;
 	background-color: white;
@@ -28,8 +35,17 @@
 
 .updateItemContainer {
 	display: flex;
-
 	gap: 0.5rem;
+}
+
+.authenticator {
+	display: flex;
+	gap: 0.5rem;
+	z-index: 1;
+	border: 2px solid black;
+	background-color: white;
+	height: fit-content;
+	padding: 5px;
 }
 
 .lds-ring {

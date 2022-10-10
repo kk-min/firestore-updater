@@ -14,6 +14,7 @@ import {
 	DocumentData,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import Authenticator from './components/Authenticator';
 
 export default function App() {
 	const [refPath, setRefPath] = useState(
@@ -27,7 +28,10 @@ export default function App() {
 
 	return (
 		<div className='appContainer'>
-			<PathDisplay path={refPath} setPath={setRefPath} />
+			<div className='configContainer'>
+				<PathDisplay path={refPath} setPath={setRefPath} />
+				<Authenticator />
+			</div>
 			<ItemDisplay cRef={cRef} />
 			<UpdateBar cRef={cRef} />
 		</div>
