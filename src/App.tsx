@@ -17,9 +17,7 @@ import { db } from './firebase';
 import Authenticator from './components/Authenticator';
 
 export default function App() {
-	const [refPath, setRefPath] = useState(
-		'Users/Y0wdXpIeSTR9mBN6b5v22WUkF4o2/ConsultHistory/rTlk5YYUGW7Ecok9xFD0/ChatHistory'
-	);
+	const [refPath, setRefPath] = useState('TestCollection');
 	const [cRef, setCRef] = useState<CollectionReference<DocumentData>>();
 
 	useEffect(() => {

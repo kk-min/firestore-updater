@@ -21,17 +21,14 @@ export interface PropTypes {
 
 export default function ItemDisplay(props: PropTypes) {
 	const [virtualList, setVirtualList] = useState<any[]>([]);
-	const virtuoso = useRef(null);
-
 	useEffect(() => {
 		const callFirebase = async () => {
 			const q = query(props.cRef, orderBy('timestamp'));
 			const unsubscribe = onSnapshot(q, (querySnapshot) => {
 				console.log('Received message list change!');
 				const chat_history: any[] = [];
-				querySnapshot.forEach((chat_doc) => {
+				querySnapshot.forEach((chat_doc: any) => {
 					const documentData = chat_doc.data();
-					console.log(chat_doc);
 					chat_history.push(documentData);
 				});
 				setVirtualList((prev) => chat_history.map((item) => item));

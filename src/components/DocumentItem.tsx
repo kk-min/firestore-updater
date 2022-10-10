@@ -10,6 +10,10 @@ export default function DocumentItem(props: PropTypes) {
 	const [color, setColor] = useState<string>('');
 	const [alignment, setAlignment] = useState<string>('');
 
+	useEffect(() => {
+		console.log('DocumentItem: ', props.data);
+	}, [props.data]);
+
 	return (
 		<Card
 			variant='outlined'

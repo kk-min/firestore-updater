@@ -13,6 +13,7 @@ export default function UpdateItem(props: PropTypes) {
 
 	useEffect(() => {
 		props.updateData({ id: id, label: label, value: value });
+		console.log('UpdateItem: ', id, label, value);
 	}, [label, value]);
 
 	const onChangeHandler = (e: any, flag: number) => {

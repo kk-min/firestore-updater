@@ -14,15 +14,20 @@ const createDocument = async (cRef: any, data: any) => {
 
 export default function UpdateBar(props: PropTypes) {
 	const [data, setData] = useState<any[]>([]);
-	const [labelList, setLabelList] = useState<string[]>([]);
+	const [idList, setIDList] = useState<number[]>([]);
 
 	const sendHandler = () => {
-		createDocument(props.cRef, data);
+		const dataObj: any = {};
+		console.log(data);
+		data.forEach((item) => {
+			dataObj[item.label] = item.value;
+		});
+		createDocument(props.cRef, dataObj);
 		console.log('Sent!');
 	};
 
 	const addHandler = () => {
-		setLabelList([...labelList, '']);
+		setIDList([...idList, idList.length]);
 		let temp_array: any[] = data;
 		temp_array.push({ id: data.length, label: '', value: '' });
 		setData((prev: any[]) => temp_array);
@@ -30,19 +35,18 @@ export default function UpdateBar(props: PropTypes) {
 
 	const updateData = (newData: any) => {
 		const id = newData.id;
-		let temp_array: any[] = data;
-		temp_array.forEach((item) => {
-			if (item.id === id) {
-				item.label = newData.label;
-				item.value = newData.value;
-			}
+		let temp_array: any[] = data.map((item) => {
+			return newData.id == item.id ? newData : item;
 		});
+		setData((prev: any[]) => temp_array);
+		console.log('parent data:');
+		console.log(data);
 	};
 	return (
 		<div className='chatBarContainer'>
 			<button onClick={addHandler}>(+)</button>
-			{labelList.map((label) => {
-				return <UpdateItem updateData={updateData} id={label} />;
+			{idList.map((id) => {
+				return <UpdateItem updateData={updateData} id={id} />;
 			})}
 			<button onClick={sendHandler}>Send</button>
 		</div>
