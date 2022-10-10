@@ -31,7 +31,13 @@ export default function Authenticator(props: PropTypes) {
 	return (
 		<div className='authenticator'>
 			{loading ? (
-				<div className='lds-ring' />
+				<div className='lds-ring'>
+					<div />
+					<div />
+					<div />
+					<div />
+					<div />
+				</div>
 			) : error ? (
 				<>
 					<h1>Authentication failed!</h1>
