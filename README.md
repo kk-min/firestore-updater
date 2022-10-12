@@ -8,7 +8,7 @@ Accesses a specified collection in Firestore and adds documents to it; for debug
 
 ## Dynamic Collection Path
 
-You can choose which collection in Firestore to observe by changing the collection path.
+You can choose which collection in Firestore to observe by changing the collection path. Note that this also works for nested collections provided that the document id of the subcollection is known.
 
 ## Live Data Display
 
