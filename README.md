@@ -3,7 +3,7 @@ Copyright © 2022 Min Kabar Kyaw
 
 Accesses a specified collection in Firestore and adds documents to it; for debugging purposes.
 
-**Please note that you muust configure your own firebase project in firebase.js in order for the app to work.**
+**Please note that you must configure your own firebase project in firebase.js in order for the app to work.**
 
 # Features
 
