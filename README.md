@@ -1,5 +1,5 @@
 # Firestore Updater
-Copyright © 2023 Min Kabar Kyaw
+_Copyright © 2023 kk-min_
 
 Accesses a specified collection in Firestore and adds documents to it; for debugging purposes.
 
